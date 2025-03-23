@@ -1,0 +1,117 @@
+void setup()
+{
+  pinMode(5, OUTPUT);  // M1 A
+  pinMode(6, OUTPUT);  // M1 B
+  pinMode(10, OUTPUT); // M2 A
+  pinMode(11, OUTPUT); // M2 B
+ 
+  pinMode(7, INPUT); // Sensor 1 (Left)
+  pinMode(8, INPUT); // Sensor 2 (Middle)
+  pinMode(9, INPUT); // Sensor 3 (Right)
+
+  pinMode(2, OUTPUT); // Enable 1
+  pinMode(3, OUTPUT); // Enable 2
+  pinMode(4, OUTPUT); // Additional VCC
+  pinMode(12, OUTPUT); // Additional VCC
+  pinMode(13, OUTPUT);//Additional GND for s3
+  digitalWrite(2, HIGH);
+  digitalWrite(3, HIGH);
+  digitalWrite(4, HIGH);
+  digitalWrite(12, HIGH);
+  digitalWrite(13, LOW);
+  
+  Serial.begin(9600);
+}
+
+void forward()
+{
+  analogWrite(5,70);
+  analogWrite(6, 0);
+  analogWrite(10, 70);
+  analogWrite(11, 0);
+}
+
+void left()
+{
+  analogWrite(5, 0);
+  analogWrite(6, 0);
+  analogWrite(10, 80);
+  analogWrite(11, 0);
+}
+void sharpleft()
+{
+  analogWrite(5, 0);
+  analogWrite(6, 80);
+  analogWrite(10, 80);
+  analogWrite(11, 0);
+}
+void sharpright()
+{
+  analogWrite(5, 80);
+  analogWrite(6, 0);
+  analogWrite(10, 0);
+  analogWrite(11,80);
+}
+
+void right()
+{
+  analogWrite(5, 80);
+  analogWrite(6, 0);
+  analogWrite(10, 0);
+  analogWrite(11, 0);
+}
+
+void stop()
+{
+  analogWrite(5, 0);
+  analogWrite(6, 0);
+  analogWrite(10, 0);
+  analogWrite(11, 0);
+}
+
+void loop()
+{
+  int s1 = digitalRead(7); // Left sensor
+  int s2 = digitalRead(8); // Middle sensor
+  int s3 = digitalRead(9); // Right sensor
+
+  Serial.print("S1: "); Serial.print(s1);
+  Serial.print(" S2: "); Serial.print(s2);
+  Serial.print(" S3: "); Serial.println(s3);
+
+  if (s1 == 0 && s2 == 1 && s3 == 0)  // Middle sensor on track
+  {
+    forward();
+  }
+  else if (s1 == 1 && s2 == 1 && s3 == 0) // Left and Middle detect track
+  {
+    sharpleft();
+    delay(300);
+  }
+  else if (s1 == 0 && s2 == 1 && s3 == 1) // Right and Middle detect track
+  {
+    sharpright();
+    delay(350);
+  }
+  else if (s1 == 1 && s2 == 0 && s3 == 0) // Only left detects track
+  {
+    left();
+  }
+  else if (s1 == 0 && s2 == 0 && s3 == 1) // Only right detects track
+  {
+    right();
+  }
+  else if (s1 == 1 && s2 == 1 && s3 == 1) // All sensors detect track (junction)
+  {
+    forward();
+  }
+  else if (s1 == 0 && s2 == 0 && s3 == 0) // No sensor detects the track (stop)
+  {
+    forward();
+  }
+  else if (s1 == 1 && s2 == 0 && s3 == 1) // Left and right detect track
+  {
+    forward();
+  }
+
+}
