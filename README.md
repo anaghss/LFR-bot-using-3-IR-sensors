@@ -5,13 +5,21 @@ This repository consists of instructions and code used to build a Line Following
 
 
 COMPONENTS REQUIRED- 
+
 Aurdino Uno - Microcontroller(Main controller)
+
 L298D Motor Driver - Controls the motor
+
 3 IR Sensors - Ascertains the line
+
 2 DC Motors - Controls the movement of bot
+
 Chassis - Base structure
-Wheels 
+
+Wheels - Mobility
+
 Power Supply(9V or 12V battery)
+
 Jumper wires - Connections between components.
 
 
