@@ -23,7 +23,9 @@ Power Supply(9V or 12V battery)
 Jumper wires - Connections between components.
 
 
+
 CIRCUIT DIAGRAM-
+
 IR Sensors to Arduino:
 
 Left Sensor → 7
