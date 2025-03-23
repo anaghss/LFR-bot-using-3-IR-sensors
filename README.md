@@ -1,6 +1,7 @@
 LFR Bot using 3 IR Sensors, Motor Driver (L298D) and Aurdino Uno
 
 OVERVIEW-
+
 This repository consists of instructions and code used to build a Line Following Bot using 3 IR Sensors, L298D motor driver and an Aurdino Uno. This robot auntonomously follows a pre-defined path which is usually marked by a line or a track.
 
 
